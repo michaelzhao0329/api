@@ -4,7 +4,7 @@ const https=require("https");
 const request=require("request");
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT;
 const key="2586bbb8f6c285d7841e7a43148b107d";
 //var url="https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=2586bbb8f6c285d7841e7a43148b107d";
 
@@ -71,10 +71,6 @@ app.post('/go', function (req, res) {
     });
   });
 }
-});
-
-app.post('/failure', function (req, res) {
-  res.redirect("/");
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
