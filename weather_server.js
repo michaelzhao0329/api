@@ -4,7 +4,7 @@ const https=require("https");
 const request=require("request");
 
 const app = express();
-const port = process.env.PORT;
+//const port = process.env.PORT;
 const key="2586bbb8f6c285d7841e7a43148b107d";
 //var url="https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=2586bbb8f6c285d7841e7a43148b107d";
 
@@ -73,4 +73,4 @@ app.post('/go', function (req, res) {
 }
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(process.env.PORT || 4000, () => console.log(`Example app listening on port "4000"`))
