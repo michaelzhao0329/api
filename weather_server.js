@@ -27,7 +27,17 @@ app.get('/again', function (req, res) {
 app.post('/go', function (req, res) {
   console.log(req.body);
   var city = req.body.city;
-  var url="https://api.openweathermap.org/data/2.5/weather?q=" + city +"&units=metric&APPID=" + key;
+  var units = req.body.units;
+
+  if ( units === "C" ) {
+    inUnits = "metric";
+    degreeUnits=" &#8451;"
+  } else {
+    inUnits = "imperial";
+    degreeUnits=" &#8457;"
+  }
+
+  var url="https://api.openweathermap.org/data/2.5/weather?q=" + city +"&units=" + inUnits + "&APPID=" + key;
 
   if ( city === "" ) {
     res.sendFile(__dirname+"/public/index.html");
@@ -56,12 +66,13 @@ if (response.statusCode === 200 ) {
     	res.write("<div id='weather'>");
       res.write("<p><h3>The weather of " + city + " is currently</h3></p>");
       res.write("<p>" + weatherDescription + "<img src=" + img + " align='middle'>" + "</p>");
-      res.write("<p>Temperature is " + temp +" degree Celsius </p>");
+      res.write("<p>Temperature is " + temp  + degreeUnits + " </p>");
       res.write("<p>Humidity is " + humidity +"%</p>");
-      res.write("<p>Today's lowest temperature is " + temp_min +" degree Celsius </p>");
-      res.write("<p>Today's highest temperature is " + temp_max +" degree Celsius </p>");
+      res.write("<p>Today's lowest Temperature is " + temp_min + degreeUnits + " </p>");
+      res.write("<p>Today's highest Temperature is " + temp_max + degreeUnits + " </p>");
 
       res.write("<form action='/again' method='GET'> ");
+
       res.write("<button class='btn btn-primary' type='submit' name='submit' >Lookup another City</button> ");
       res.write("</form>");
       res.write("</div>");
