@@ -36,7 +36,7 @@ app.post('/go', function (req, res) {
 
   https.get(url,function(response){
     //console.log(response);
-
+if (response.statusCode === 200 ) {
     response.on("data",function(data){
       const weatherData = JSON.parse(data);
       const temp = weatherData.main.temp;
@@ -69,6 +69,9 @@ app.post('/go', function (req, res) {
       res.send();
       res.end();
     });
+    } else{
+          res.sendFile(__dirname+"/public/index.html");
+    }
   });
 }
 });
